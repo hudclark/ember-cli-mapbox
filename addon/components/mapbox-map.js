@@ -15,7 +15,10 @@ export default Ember.Component.extend({
       // Setters
       if (this.get('center')) {
         map.setView(this.get('center'), this.get('zoom'));
-      }
+	  } else if (this.get('fitBounds')) {
+		var geo = new L.geoJson(this.get('fitBounds'));
+		map.fitBounds(geo.getBounds());
+	  }
 
       // Bind Events
       MAP_EVENTS.forEach((event) => {
