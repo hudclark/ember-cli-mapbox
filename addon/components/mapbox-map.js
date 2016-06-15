@@ -5,19 +5,19 @@ import { MAP_EVENTS } from '../constants/events';
 export default Ember.Component.extend({
   layout: layout,
   divId: 'map',
-
+  options: {},
   mapId: null,
 
   setup: Ember.on('didInsertElement', function() {
     Ember.run.scheduleOnce('afterRender', this, function() {
-      let map = L.mapbox.map(this.get('divId'), this.get('mapId'));
+      let map = L.mapbox.map(this.get('divId'), this.get('mapId'), this.get('options'));
 
       // Setters
       if (this.get('center')) {
         map.setView(this.get('center'), this.get('zoom'));
 	  } else if (this.get('fitBounds')) {
-		var geo = new L.geoJson(this.get('fitBounds'));
-		map.fitBounds(geo.getBounds());
+  		var geo = new L.geoJson(this.get('fitBounds'));
+  		map.fitBounds(geo.getBounds());
 	  }
 
       // Bind Events
